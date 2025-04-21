@@ -1,0 +1,88 @@
+$sidebar-bg: #2d2b32;
+$sidebar-hover: #444;
+$sidebar-active: #222;
+$text-color: #767676;
+
+.sidebar {
+    background-color: $sidebar-bg;
+    color: $text-color;
+
+    .sidebar-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 16px;
+
+
+        div {
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: $sidebar-hover;
+            }
+
+            &.active {
+                background-color: $sidebar-active;
+
+                a {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        a {
+            display: flex;
+            align-items: center;
+            gap: 10px; // ✅ Khoảng cách giữa icon và chữ
+            color: $text-color;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+
+            i {
+                font-size: 18px;
+                color: $text-color; // ✅ Icon cũng dùng màu giống text
+            }
+
+            &:hover {
+                background-color: $sidebar-hover;
+            }
+
+        }
+
+        .submenu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            list-style: none;
+
+            li {
+                a {
+                    padding: 8px 20px;
+                    font-size: 14px;
+                    display: flex;
+                    gap: 10px;
+                    color: $text-color;
+
+                    &:hover {
+                        background-color: #555;
+                    }
+
+                    i {
+                        color: $text-color;
+                    }
+                }
+            }
+        }
+
+        .dropdown-icon {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .rotate {
+            transform: rotate(180deg);
+        }
+    }
+}

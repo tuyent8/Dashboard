@@ -1,0 +1,144 @@
+.header {
+    background-color: white;
+    border-bottom: 1px solid #bbb;
+    position: fixed; // ✅ Giữ cố định header
+    top: 0; // ✅ Dính trên cùng
+    left: 0;
+    width: 100%; // ✅ Trải dài toàn bộ chiều ngang
+    z-index: 1000;
+}
+
+.navbar {
+    display: flex;
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.brand {
+    color: #333;
+    font-weight: bold;
+    font-size: 24px;
+    margin-right: 20px;
+    padding: 20px;
+}
+
+.nav-links {
+    align-items: center;
+    display: flex;
+}
+
+.nav-icons {
+    align-items: center;
+    display: flex;
+    float: left;
+    margin: 0 10px 0 -32px;
+}
+
+.nav-icons i {
+    color: #333;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    float: left;
+}
+
+.nav-links a.active {
+    color: #4e73df;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fc;
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+}
+
+.search-container input {
+    border: 1px solid #bbb;
+    background: transparent;
+    padding: 0.5rem 0.75rem;
+    width: 320px;
+    height: 32px;
+    font-size: 16px;
+}
+
+
+.search-container button {
+    background: #bbb;
+    border: none;
+    cursor: pointer;
+    height: 32px;
+    font-size: 24px;
+    padding: 2px 6px;
+}
+
+
+.navbar-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    float: right;
+}
+
+.user-name {
+    margin-right: 1rem;
+    font-size: 20px;
+}
+
+.user-avatar {
+    font-size: 28px;
+    border-radius: 50%;
+    margin-right: 1rem;
+    position: relative;
+    /* Để menu nằm dưới avatar */
+    cursor: pointer;
+}
+
+.user-avatar i {
+    margin-left: 5px;
+    /* Khoảng cách giữa avatar và mũi tên */
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    /* Đặt menu ngay dưới avatar */
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 10;
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-menu button {
+    background: none;
+    border: none;
+    padding: 6px 12px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+
+    &:hover {
+        background-color: #f0f0f0;
+    }
+}
+
+.user-avatar .bi-chevron-down {
+    font-size: 16px;
+    /* Thay đổi kích thước mũi tên */
+    margin-left: 5px;
+    /* Khoảng cách giữa avatar và mũi tên */
+    transition: transform 0.3s ease-in-out;
+    /* Hiệu ứng khi hover */
+}
