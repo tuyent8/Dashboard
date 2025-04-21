@@ -1,0 +1,25 @@
+{
+  "name": "dashboard-integration",
+  "version": "1.0.0",
+  "description": "Dashboard for integrating HR and Payroll systems",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "msnodesqlv8": "^4.5.0",
+    "mssql": "^9.3.2",
+    "mysql2": "^3.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
