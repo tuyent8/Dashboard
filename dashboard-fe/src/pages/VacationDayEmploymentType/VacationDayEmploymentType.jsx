@@ -2,72 +2,103 @@ import React from 'react';
 import SlideBarComponent from '../../components/SlideBar/SlideBarComponent';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import './VacationDayEmploymentType.scss';
+import { useVacation } from '../../context/vacationContext';
 
-const COLORS = {
-    'Toàn thời gian': '#2196f3',  // Xanh dương
-    'Bán thời gian': '#ff9800'    // Cam
-};
-
-const data = [
-    { name: 'Toàn thời gian', value: 25 },
-    { name: 'Bán thời gian', value: 10 },
-];
+const COLORS = ['#2196f3', '#ff9800'];
 
 const VacationDayEmploymentType = () => {
+    const { vacationData, loading } = useVacation();
+
+    const data = vacationData.employmentType?.map(item => ({
+        name: item.employment_type === 'Full-time' ? 'Toàn thời gian' : 'Bán thời gian',
+        value: item.total_vacation_days
+    })) || [];
+
+    if (loading) {
+        return (
+            <div className='container'>
+                <div className='sidebar'>
+                    <SlideBarComponent />
+                </div>
+                <div className='content w-100 d-flex justify-content-center align-items-center'>
+                    <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Đang tải...</span>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    const totalVacationDays = data.reduce((sum, item) => sum + item.value, 0);
+
     return (
-        <div className='container d-flex'>
+        <div className='container'>
             <div className='sidebar'>
                 <SlideBarComponent />
             </div>
-
-            <div className='content p-4 w-100'>
-                <h3 className="mb-4">Thống kê Ngày Nghỉ - Loại Hình Làm Việc</h3>
+            <div className='content w-100'>
+                <h3 className="mb-4">Thống Kê Ngày Nghỉ Theo Hình Thức Làm Việc</h3>
 
                 <div className="row">
                     <div className="col-md-6">
-                        <table className="table table-bordered table-hover">
-                            <thead className="table-dark">
-                                <tr>
-                                    <th>Loại hình</th>
-                                    <th>Số ngày nghỉ</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {data.map((item, index) => (
-                                    <tr key={index}>
-                                        <td>{item.name}</td>
-                                        <td>{item.value} ngày</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                        <div className="card shadow-sm">
+                            <div className="card-body">
+                                <table className="table table-bordered table-hover">
+                                    <thead className="table-dark">
+                                        <tr>
+                                            <th>Hình thức làm việc</th>
+                                            <th>Số ngày nghỉ</th>
+                                            <th>Tỷ lệ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {data.map((item, index) => (
+                                            <tr key={index}>
+                                                <td>{item.name}</td>
+                                                <td className="text-end">{item.value} ngày</td>
+                                                <td className="text-end">
+                                                    {((item.value / totalVacationDays) * 100).toFixed(1)}%
+                                                </td>
+                                            </tr>
+                                        ))}
+                                        <tr className="table-info">
+                                            <td><strong>Tổng cộng</strong></td>
+                                            <td className="text-end"><strong>{totalVacationDays} ngày</strong></td>
+                                            <td className="text-end"><strong>100%</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="col-md-6">
-                        <h5 className="text-center mb-4" style={{ paddingBottom: '20px' }}>Biểu đồ Ngày Nghỉ</h5>
-                        <ResponsiveContainer width="100%" height={400}>
-                            <PieChart>
-                                <Pie
-                                    data={data}
-                                    dataKey="value"
-                                    nameKey="name"
-                                    cx="50%"
-                                    cy="50%"
-                                    outerRadius={150}
-                                    fill="#8884d8"
-                                    label
-                                >
-                                    {data.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[entry.name]} />
-                                    ))}
-                                </Pie>
-                                <Tooltip
-                                    formatter={(value) => [`${value} ngày`, 'Số ngày nghỉ']}
-                                    labelFormatter={(label) => `Loại hình: ${label}`}
-                                />
-                                <Legend />
-                            </PieChart>
-                        </ResponsiveContainer>
+                        <div className="card shadow-sm">
+                            <div className="card-body" style={{ height: '400px' }}>
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <PieChart>
+                                        <Pie
+                                            data={data}
+                                            cx="50%"
+                                            cy="50%"
+                                            outerRadius={130}
+                                            dataKey="value"
+                                            label={({ name, percent }) => `${name} (${(percent * 100).toFixed(1)}%)`}
+                                            labelLine
+                                        >
+                                            {data.map((entry, index) => (
+                                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                            ))}
+                                        </Pie>
+                                        <Tooltip
+                                            formatter={(value) => `${value} ngày`}
+                                            labelFormatter={(name) => `${name}`}
+                                        />
+                                        <Legend />
+                                    </PieChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

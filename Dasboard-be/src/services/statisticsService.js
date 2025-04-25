@@ -641,56 +641,6 @@ class StatisticsService {
             throw error;
         }
     }
-
-    async getTotalVacationDaysByYear() {
-        try {
-            const [result] = await this.dbPayroll.query(`
-                SELECT 
-                    CASE 
-                        WHEN Paid_To_Date > 0 THEN 'Current Year'
-                        WHEN Paid_Last_Year > 0 THEN 'Last Year'
-                        ELSE 'Unknown'
-                    END as year_type,
-                    SUM(Vacation_Days) as total_vacation_days
-                FROM employee
-                GROUP BY CASE 
-                    WHEN Paid_To_Date > 0 THEN 'Current Year'
-                    WHEN Paid_Last_Year > 0 THEN 'Last Year'
-                    ELSE 'Unknown'
-                END
-            `);
-            return result;
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    // Benefits Statistics
-    async getAverageBenefitsByShareholder() {
-        const result = await this.dbHR.query(`
-            SELECT 
-                p.Shareholder_Status,
-                AVG(bp.Deductable) as average_deductable,
-                AVG(bp.Percentage_CoPay) as average_copay
-            FROM [HR].[dbo].[Personal] p
-            JOIN [HR].[dbo].[Benefit_Plans] bp ON p.Benefit_Plans = bp.Benefit_Plan_ID
-            GROUP BY p.Shareholder_Status
-        `);
-        return result[0];
-    }
-
-    async getAverageBenefitsByPlan() {
-        const result = await this.dbHR.query(`
-            SELECT 
-                bp.Plan_Name,
-                AVG(bp.Deductable) as average_deductable,
-                AVG(bp.Percentage_CoPay) as average_copay
-            FROM [HR].[dbo].[Benefit_Plans] bp
-            GROUP BY bp.Plan_Name
-        `);
-        return result[0];
-    }
-
     // Get all employees from both databases
     async getAllEmployees() {
         try {
@@ -814,42 +764,6 @@ class StatisticsService {
             return result;
         } catch (error) {
             console.error('Error in getAllEmployees:', error);
-            throw error;
-        }
-    }
-
-    async getTotalEmployees() {
-        try {
-            // Get all unique employee IDs from both databases
-            const [hrResult] = await this.dbHR.query(`
-                SELECT DISTINCT Employee_ID
-                FROM [HR].[dbo].[Personal]
-            `);
-
-            const [payrollResult] = await this.dbPayroll.query(`
-                SELECT DISTINCT idEmployee
-                FROM employee
-            `);
-
-            // Create a Set to store unique employee IDs
-            const uniqueEmployeeIds = new Set();
-
-            // Add IDs from HR database
-            hrResult.forEach(employee => {
-                uniqueEmployeeIds.add(employee.Employee_ID);
-            });
-
-            // Add IDs from Payroll database
-            payrollResult.forEach(employee => {
-                uniqueEmployeeIds.add(employee.idEmployee);
-            });
-
-            return {
-                total_unique_employees: uniqueEmployeeIds.size,
-                hr_employees: hrResult.length,
-                payroll_employees: payrollResult.length
-            };
-        } catch (error) {
             throw error;
         }
     }

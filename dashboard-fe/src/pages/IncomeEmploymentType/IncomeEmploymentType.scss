@@ -28,6 +28,10 @@ $text-color: #767676;
             text-align: center;
         }
 
+        .row {
+            display: flex;
+        }
+
         .table {
             margin-bottom: 2rem;
             font-size: 1.5rem;

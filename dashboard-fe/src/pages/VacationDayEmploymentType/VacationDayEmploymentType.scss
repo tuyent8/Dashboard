@@ -28,6 +28,84 @@ $text-color: #767676;
             text-align: center;
         }
 
+        $sidebar-bg: #2d2b32;
+        $sidebar-hover: #444;
+        $sidebar-active: #222;
+        $text-color: #767676;
+
+        .container {
+            margin-top: 104px;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            display: flex;
+
+            .sidebar {
+                width: 340px;
+                min-height: 100vh;
+                background-color: $sidebar-bg;
+                color: $text-color;
+            }
+
+            .content {
+                flex: 1;
+                background-color: #fff;
+                padding: 2rem;
+
+                h3 {
+                    color: #333;
+                    font-weight: 600;
+                    font-size: 2.5rem;
+                    text-align: center;
+                }
+
+                .row {
+                    display: flex;
+                }
+
+                .table {
+                    margin-bottom: 2rem;
+                    font-size: 1.5rem;
+                    border: 2px solid #343a40;
+                    border-radius: 8px;
+                    background-color: #f8f9fa;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+                    th,
+                    td {
+                        padding: 20px;
+                        vertical-align: middle;
+                        border: 1px solid #dee2e6;
+                    }
+
+                    th {
+                        background-color: #343a40;
+                        color: #fff;
+                        font-size: 1.75rem;
+                        border-bottom: 2px solid #212529;
+                    }
+
+                    td {
+                        color: #333;
+                        font-weight: 500;
+
+                        &:hover {
+                            background-color: #e9ecef;
+                        }
+                    }
+                }
+
+                .text-center {
+                    color: #333;
+                    margin-bottom: 1.5rem;
+                }
+
+                .recharts-legend-item-text,
+                .recharts-label {
+                    font-size: 1.25rem !important;
+                }
+            }
+        }
+
         .table {
             margin-bottom: 2rem;
             font-size: 1.5rem;

@@ -12,8 +12,8 @@ $text-color: #767676;
     .sidebar {
         width: 340px;
         min-height: 100vh;
-        background-color: $sidebar-bg;
-        color: $text-color;
+        background-color: #2d2b32;
+        color: #767676;
     }
 
     .content {
@@ -26,16 +26,36 @@ $text-color: #767676;
             font-weight: 600;
             font-size: 2.5rem;
             text-align: center;
+            margin-bottom: 2rem;
         }
 
+        .row {
+            display: flex;
+            gap: 2rem;
+            
+            .col-md-6 {
+                flex: 1;
+                width: 50%;
+            }
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            height: 100%;
+
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
 
         .table {
-            margin-bottom: 2rem;
+            margin-top: 80px;
+            margin-bottom: 0;
             font-size: 1.5rem;
-            border: 2px solid #343a40;
-            border-radius: 8px;
             background-color: #f8f9fa;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
 
             th,
             td {
@@ -48,7 +68,6 @@ $text-color: #767676;
                 background-color: #343a40;
                 color: #fff;
                 font-size: 1.75rem;
-                border-bottom: 2px solid #212529;
             }
 
             td {
@@ -59,11 +78,6 @@ $text-color: #767676;
                     background-color: #e9ecef;
                 }
             }
-        }
-
-        .text-center {
-            color: #333;
-            margin-bottom: 1.5rem;
         }
 
         .recharts-legend-item-text,

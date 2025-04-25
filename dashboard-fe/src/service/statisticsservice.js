@@ -100,21 +100,13 @@ export const getTotalVacationDaysByYear = async () => {
         throw error
     }
 }
-export const getAverageBenefitsByShareholder = async () => {
+export const getAllEmployees = async () => {
     try {
-        const response = await axiosJWT.get(`${process.env.REACT_APP_API_URL}/statistics/benefits/shareholder`)
+        const response = await axiosJWT.get(`${process.env.REACT_APP_API_URL}/statistics//employees`)
         return response.data
     } catch (error) {
         console.error("Error fetching statistics:", error)
         throw error
     }
 }
-export const getAverageBenefitsByPlan = async () => {
-    try {
-        const response = await axiosJWT.get(`${process.env.REACT_APP_API_URL}/statistics/benefits/plan`)
-        return response.data
-    } catch (error) {
-        console.error("Error fetching statistics:", error)
-        throw error
-    }
-}
+

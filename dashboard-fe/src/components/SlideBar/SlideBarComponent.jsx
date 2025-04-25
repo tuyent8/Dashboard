@@ -58,19 +58,6 @@ const SlideBarComponent = () => {
                 </div>
 
                 <div>
-                    <a href="#" className="dropdown-toggle" onClick={toggleBenefitDropdown}>
-                        <i className="bi bi-gift"></i> Trung bình quyền lợi được chi trả
-                        <i className={`bi bi-chevron-down dropdown-icon ${benefitDropdownOpen ? 'rotate' : ''}`}></i>
-                    </a>
-                    {benefitDropdownOpen && (
-                        <ul className="submenu">
-                            <li><NavLink to="/benefit-sharehoder" className={({ isActive }) => isActive ? 'active' : ''}>Theo cổ đông</NavLink></li>
-                            <li><NavLink to="/benefit-plan" className={({ isActive }) => isActive ? 'active' : ''}>Theo gói quyền lợi</NavLink></li>
-                        </ul>
-                    )}
-                </div>
-
-                <div>
                     <NavLink to="/logout" className={({ isActive }) => isActive ? 'active' : ''}>
                         <i className="bi bi-box-arrow-right"></i> Logout
                     </NavLink>
