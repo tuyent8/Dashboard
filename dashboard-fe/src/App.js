@@ -12,7 +12,8 @@ import VacationDayGender from './pages/VacationDayGender/VacationDayGender';
 import VacationDayEmploymentType from './pages/VacationDayEmploymentType/VacationDayEmploymentType';
 import VacationDayEthnicity from './pages/VacationDayEthnicity/VacationDayEthnicity';
 import IncomeEmploymentType from './pages/IncomeEmploymentType/IncomeEmploymentType';
-
+import AddEmployee from './pages/AddEmployee/AddEmployee';
+import EditEmployee from './pages/EditEmployee/EditEmployee';
 function App() {
     return (
         <div>
@@ -30,6 +31,8 @@ function App() {
                 <Route path="/vacationday-gender" element={<VacationDayGender />} />
                 <Route path="/vacationday-employment-type" element={<VacationDayEmploymentType />} />
                 <Route path="/vacationday-ethnicity" element={<VacationDayEthnicity />} />
+                <Route path="/employees/add" element={<AddEmployee />} />
+                <Route path="/employees/edit/:id" element={<EditEmployee />} />
             </Routes>
         </div>
     );

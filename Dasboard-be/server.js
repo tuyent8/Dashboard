@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const { createConnections } = require('./src/config/database');
 const statisticsRoutes = require('./src/routes/statisticsRoutes');
+const employeeRoutes = require('./src/routes/employeeRoutes');
 const app = express();
 
 // Thiết lập middleware
@@ -41,6 +42,7 @@ async function initializeApp() {
 
         // Sử dụng routes
         app.use('/api/statistics', statisticsRoutes);
+        app.use('/api/employee', employeeRoutes);
 
         // Xử lý lỗi cơ bản
         app.use((err, req, res, next) => {

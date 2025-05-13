@@ -100,13 +100,4 @@ export const getTotalVacationDaysByYear = async () => {
         throw error
     }
 }
-export const getAllEmployees = async () => {
-    try {
-        const response = await axiosJWT.get(`${process.env.REACT_APP_API_URL}/statistics//employees`)
-        return response.data
-    } catch (error) {
-        console.error("Error fetching statistics:", error)
-        throw error
-    }
-}
 

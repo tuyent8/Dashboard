@@ -15,8 +15,7 @@ const mysqlConfig = {
 
 // Cấu hình cho SQL Server
 const sqlServerConfig = {
-    connectionString: `Driver={ODBC Driver 17 for SQL Server};Server=${process.env.MSSQL_SERVER || 'LAPTOP-DE5RV5LV'};Database=${process.env.MSSQL_DATABASE || 'HR'};Trusted_Connection=Yes;`,
-    driver: 'msnodesqlv8',
+    connectionString: `Driver={ODBC Driver 17 for SQL Server};Server=${process.env.MSSQL_SERVER || 'LAPTOP-DE5RV5LV'};Database=${process.env.MSSQL_DATABASE || 'HR'};Trusted_Connection=Yes;`
 };
 
 // Tạo kết nối MySQL
@@ -51,13 +50,6 @@ async function createConnections() {
     try {
         const mysqlPool = await createMySQLConnection();
         const sqlServerPool = await createSQLServerConnection();
-
-        // Thêm các phương thức trợ giúp
-        sqlServerPool.query = async (sqlText, params) => {
-            const request = new sqlServerPool.Request();
-            return await request.query(sqlText, params);
-        };
-
         return { mysqlPool, sqlServerPool };
     } catch (error) {
         console.error('Lỗi khi tạo kết nối database:', error);

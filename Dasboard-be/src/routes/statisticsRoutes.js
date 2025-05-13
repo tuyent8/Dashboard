@@ -135,20 +135,28 @@ router.get('/benefits/plan', async (req, res) => {
 // Get all employees route
 router.get('/employees', async (req, res) => {
     try {
-        const result = await req.statisticsService.getAllEmployees();
-        res.json(result);
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 20;
+        // Sắp xếp theo employee_id giảm dần (mới nhất lên đầu)
+        let result = await req.statisticsService.getAllEmployees();
+        result = result.sort((a, b) => b.employee_id - a.employee_id);
+        const total = result.length;
+        const start = (page - 1) * limit;
+        const end = start + limit;
+        const employees = result.slice(start, end);
+        res.json({
+            success: true,
+            data: {
+                employees,
+                total,
+                page,
+                limit
+            }
+        });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ message: error.message });
     }
 });
 
-router.get('/total-employees', async (req, res) => {
-    try {
-        const result = await req.statisticsService.getTotalEmployees();
-        res.json(result);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
 
 module.exports = router; 

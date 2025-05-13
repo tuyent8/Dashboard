@@ -1,34 +1,49 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { getAllEmployees } from '../service/statisticsservice';
+import { getEmployees } from '../service/Employeeservice';
 
 const EmployeeContext = createContext();
 
 export const EmployeeProvider = ({ children }) => {
     const [employees, setEmployees] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-    const fetchEmployees = async () => {
+    const refreshEmployees = async () => {
         try {
-            const response = await getAllEmployees();
-            setEmployees(response);
-        } catch (error) {
-            console.error("Error fetching employees:", error);
+            setLoading(true);
+            const response = await getEmployees();
+            if (Array.isArray(response)) {
+                setEmployees(response);
+                setError(null);
+            } else {
+                setEmployees([]);
+                setError(response?.message || 'Không thể tải danh sách nhân viên');
+            }
+        } catch (err) {
+            setError(err.response?.data?.message || 'Có lỗi xảy ra khi tải danh sách nhân viên');
+            console.error('Error fetching employees:', err);
         } finally {
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchEmployees();
-        const interval = setInterval(fetchEmployees, 5000);
+        refreshEmployees();
+        const interval = setInterval(refreshEmployees, 5000);
         return () => clearInterval(interval);
     }, []);
 
     return (
-        <EmployeeContext.Provider value={{ employees, loading, totalEmployees: employees.length }}>
+        <EmployeeContext.Provider value={{ employees, loading, error, refreshEmployees }}>
             {children}
         </EmployeeContext.Provider>
     );
 };
 
-export const useEmployees = () => useContext(EmployeeContext);
+export const useEmployees = () => {
+    const context = useContext(EmployeeContext);
+    if (!context) {
+        throw new Error('useEmployees must be used within an EmployeeProvider');
+    }
+    return context;
+};

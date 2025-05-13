@@ -1,55 +1,101 @@
-.employee-list-section {
-    margin: 1rem 0;
-    
+.employee-list-section,
+.employee-list-section .card,
+.employee-list-section .table-responsive,
+.employee-list-section .table {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.employee-list-section {  
     .card {
         background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        max-width: 1200px;  // Giới hạn chiều rộng tối đa của bảng
-        margin: 0 auto;     // Căn giữa bảng
-        
-        .card-title {
-            color: #2c3e50;
-            font-size: 1.8rem;  // Tăng font size tiêu đề
-            font-weight: 600;
-            margin-bottom: 1rem;
-            padding: 0.5rem 1rem;
-        }
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        border: none;
+        width: auto;
+        max-width: 100%;
+    }
 
-        .table {
-            margin-bottom: 0;
-            font-size: 1.1rem;  // Tăng font size cho nội dung bảng
-            
-            th {
-                background-color: #343a40;
-                color: #fff;
-                font-weight: 600;
-                vertical-align: middle;
-                white-space: nowrap;
-                padding: 0.6rem;
-                font-size: 1.2rem;  // Tăng font size cho header
-            }
-
-            td {
-                vertical-align: middle;
-                padding: 0.6rem;
-                white-space: nowrap;
-            }
-
-            tbody tr {
-                &:hover {
-                    background-color: #f8f9fa;
-                }
-            }
-
-            .text-end {
-                text-align: right;
-            }
-        }
+    .card-body {
+        padding: 0;
+    }
+    
+    .card-title {
+        color: #2c3e50;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
     }
 
     .table-responsive {
-        margin-top: -64px;  // Giảm chiều cao tối đa của bảng
+        margin-top: 0;
         overflow-y: auto;
+        width: 100%;
+        max-width: 100%;
     }
+
+    .table {
+        margin-bottom: 0;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #fff;
+        table-layout: fixed;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    th, td {
+        white-space: normal;
+        padding: 0.5rem 0.6rem;
+        text-align: center;
+        word-break: break-word;
+    }
+
+    th {
+        background-color: #343a40;
+        color: #fff;
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+
+    tbody tr {
+        &:hover {
+            background-color: #f8f9fa;
+        }
+    }
+}
+
+.pagination {
+  justify-content: center;
+  margin-top: 1rem;
+  display: flex;
+  list-style-type: none;
+
+  .page-item {
+    .page-link {
+      color: #0c1724;
+      border: 1px solid #dee2e6;
+      background: #fff;
+      margin: 0 2px;
+      transition: background 0.2s, color 0.2s;
+      &:hover {
+        background: #f1f1f1;
+        color: #0056b3;
+      }
+    }
+    &.active .page-link {
+      background: #007bff;
+      color: #fff;
+      border-color: #007bff;
+    }
+    &.disabled .page-link {
+      color: #ccc;
+      pointer-events: none;
+      background: #f8f9fa;
+    }
+  }
 }
